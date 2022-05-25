@@ -1,5 +1,4 @@
 name: Deploy ASP.NET Core app to Azure Web App
-##############test connent########
 on:
   push:
     branches:
@@ -37,7 +36,8 @@ jobs:
         run: |
           dotnet build --configuration Release
           dotnet publish -c Release -o myapp 
-          
+      - name: In case of failure
+          if: ${{ failure() }}
       # Deploy to Azure Web apps
       - name: 'Run Azure webapp deploy action using publish profile credentials'
         uses: azure/webapps-deploy@v2
